@@ -60,6 +60,13 @@ async function run() {
       res.send(result);
     });
 
+
+    app.get('/latest-products', async (req, res) => {
+      const cursor = productcoll.find().sort({ created_at: -1 }).limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get("/products/:id", async (req, res) => {
       const id = req.params.id;
       const query = {
